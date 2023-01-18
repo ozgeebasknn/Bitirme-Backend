@@ -2,7 +2,8 @@ const Mongoose=require("mongoose");
 const logger=require("../scripts/logger/Projects");
 const ProjectSchema=new Mongoose.Schema({
     name:String,
-    ilan_image: {String},
+    ilan_image: {data:Buffer},
+    // ilan_image:String,
     kira:String,
     isitma:String,
     odaSayisi:String,

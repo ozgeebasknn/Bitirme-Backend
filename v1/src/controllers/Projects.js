@@ -5,7 +5,7 @@ const path = require("path");
 
 const index = (req, res) => {
   // console.log("req:>>",req.user);
-  list()
+  list(undefined, req.query)
     .then((response) => {
       res.status(httpStatus.OK).send(response);
     })
@@ -14,6 +14,7 @@ const index = (req, res) => {
 
 const create = (req, res) => {
   req.body.user_id = req.user;
+  project.ilan_image = req.files.map
   insert(req.body)
     .then((response) => {
       // if (!req?.files?.ilan_image) {
@@ -57,6 +58,7 @@ const update = (req, res) => {
 
   modify(req.body, req.params?.id)
     .then((updatedProject) => {
+      updatedProject.onayDurum==0
       res.status(httpStatus.OK).send(updatedProject);
     })
     .catch((e) =>
@@ -134,7 +136,9 @@ const projectDetail = (req, res) => {
 
 
   const updateIlanImage = (req, res) => {
-    console.log(req.body)
+    const ilan = {}
+    ilan.isim = req.body.ilan_ismi
+    ilan.photos = req.files.map
     res.send("basarılı")
   };
 

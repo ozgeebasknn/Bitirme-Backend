@@ -9,7 +9,15 @@ const list = (where) => {
   return Project.find(where || {}).populate({
     path: "user_id",
     select: "first_name last_name email profile_image",
-  });
+  }).filter(x => {
+    for (let filter in filters) {
+        if (x[filter] !== filters[filter]) {
+            return false
+        }
+    }
+    return true
+})
+  ;
 };
 
 const modify = (data, id) => {

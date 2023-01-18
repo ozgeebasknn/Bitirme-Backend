@@ -5,7 +5,7 @@ const {
   modify,
   remove,
   getUser,
-  favIlanEkle
+  // favIlanEkle
 } = require("../api/Users");
 const projectService = require("../api/Projects");
 const httpStatus = require("http-status");
@@ -103,6 +103,7 @@ const resetPassword = (req, res) => {
 };
 
 const update = (req, res) => {
+  req.body.password = passwordToHash(req.body.password);
   modify({ _id: req.user?._id }, req.body)
     .then((updatedUser) => {
       res.status(httpStatus.OK).send(updatedUser);
@@ -139,18 +140,18 @@ const deleteUser = (req, res) => {
     );
 };
 
-const changePassword = (req, res) => {
-  req.body.password = passwordToHash(req.body.password);
-  modify({ _id: req.user?._id }, req.body)
-    .then((updatedUser) => {
-      res.status(httpStatus.OK).send(updatedUser);
-    })
-    .catch(() =>
-      res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .send({ error: "güncelleme işlemi sırasında bir hata oluştu" })
-    );
-};
+// const changePassword = (req, res) => {
+//   req.body.password = passwordToHash(req.body.password);
+//   modify({ _id: req.user?._id }, req.body)
+//     .then((updatedUser) => {
+//       res.status(httpStatus.OK).send(updatedUser);
+//     })
+//     .catch(() =>
+//       res
+//         .status(httpStatus.INTERNAL_SERVER_ERROR)
+//         .send({ error: "güncelleme işlemi sırasında bir hata oluştu" })
+//     );
+// };
 
 const updateProfileImage = (req, res) => {
   console.log(req.files);
@@ -197,23 +198,7 @@ const userDetail = (req, res) => {
     );
 };
 
-const favoriIlan = (req, res) => {
-  if (!req.params?.id) {
-    return res.status(httpStatus.BAD_REQUEST).send({
-      message: "ID Bilgisi Eksik.",
-    });
-  }
 
-  favIlanEkle(req.body, req.params?.id)
-    .then((updatedIlan) => {
-      res.status(httpStatus.OK).send(updatedIlan);
-    })
-    .catch((e) =>
-      res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .send({ error: "kayit sirasinda bir problem olustu" })
-    );
-};
 
 module.exports = {
   create,
@@ -223,8 +208,8 @@ module.exports = {
   resetPassword,
   update,
   deleteUser,
-  changePassword,
+  // changePassword,
   updateProfileImage,
   userDetail,
-  favoriIlan
+  // favoriIlan
 };

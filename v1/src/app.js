@@ -1,13 +1,15 @@
 const express=require("express");
 const helmet=require("helmet");
 const config=require("./config");
-const {ProjectRoutes,UserRoutes,AdminRoutes}=require("./api-routes");
+const {ProjectRoutes,UserRoutes,AdminRoutes,FavorilerRoutes}=require("./api-routes");
 const {updateIlanImage} = require("./controllers/Projects")
+const {create} = require("./controllers/Projects")
 const loaders = require("./loaders");
 const events=require("./scripts/events")
 const path=require("path")
 const cors = require('cors')
 const multer  = require('multer')
+const project=require("./models/Projects")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, __dirname + '/uploads')
@@ -35,8 +37,9 @@ app.listen(process.env.APP_PORT,()=>{
     app.use("/projects",ProjectRoutes.router);
     app.use("/users",UserRoutes.router);
     app.use("/admin",AdminRoutes.router);
+    app.use("/favoriler",FavorilerRoutes.router);
     app.use("/users/login",UserRoutes.router);
-    app.post("/upload", upload.array('photos', 12), updateIlanImage)
+    app.post("/upload", upload.array('photos', 12), create)
 });
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

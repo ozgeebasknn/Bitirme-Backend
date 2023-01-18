@@ -10,8 +10,9 @@ const UserSchema = new Mongoose.Schema(
       type: String,
       unique: true,
     },
+    favorites:[],
     // email:String,
-    profile_image:{ String,}
+    // profile_image:{ String,}
   },
   { timestamps: true, versionKey: false }
 );
