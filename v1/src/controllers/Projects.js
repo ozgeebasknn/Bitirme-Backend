@@ -1,7 +1,9 @@
-const { insert, modify, list, remove, getProject } = require("../api/Projects");
+const { insert, modify, list, remove, getProject, changeOnayDurum ,filtrele} = require("../api/Projects");
 const httpStatus = require("http-status");
 const { listIndexes } = require("../models/Projects");
 const path = require("path");
+const { isObjectIdOrHexString } = require("mongoose");
+const e = require("express");
 
 const index = (req, res) => {
   // console.log("req:>>",req.user);
@@ -10,6 +12,14 @@ const index = (req, res) => {
       res.status(httpStatus.OK).send(response);
     })
     .catch((e) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e));
+};
+
+
+const filtreliIlan=(req,res)=>{
+  filtrele().then((response)=>{
+    res.status(httpStatus.OK).send(response);
+  }).catch((e)=>res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error:"hata"} ))
+
 };
 
 const create = (req, res) => {
@@ -58,8 +68,10 @@ const update = (req, res) => {
 
   modify(req.body, req.params?.id)
     .then((updatedProject) => {
-      updatedProject.onayDurum==0
-      res.status(httpStatus.OK).send(updatedProject);
+      changeOnayDurum(req.body,req.params?.id).then((updatedProject)=>{
+        res.status(httpStatus.OK).send(updatedProject);
+      })
+      
     })
     .catch((e) =>
       res
@@ -149,4 +161,5 @@ module.exports = {
   deleteProject,
   updateIlanImage,
   projectDetail,
+  filtreliIlan
 };

@@ -9,9 +9,12 @@ const {
   update,
   deleteProject,
   updateIlanImage,
-  projectDetail
+  projectDetail,
+  filtreliIlan
 } = require("../controllers/Projects");
 const router = express.Router();
+
+
 
 router.route("/").get( index);
 router
@@ -23,6 +26,9 @@ router
 
 router.route("/:id").delete(authenticate, deleteProject);
 router.route("/:id").get(projectDetail);
+router.route("/ilanlar").get(filtreliIlan);
+
+
 // router.route("/update-ilan-image").post( authenticate, updateIlanImage);
 
 module.exports = {

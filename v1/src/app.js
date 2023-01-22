@@ -3,6 +3,7 @@ const helmet=require("helmet");
 const config=require("./config");
 const {ProjectRoutes,UserRoutes,AdminRoutes,FavorilerRoutes}=require("./api-routes");
 const {updateIlanImage} = require("./controllers/Projects")
+
 const {create} = require("./controllers/Projects")
 const loaders = require("./loaders");
 const events=require("./scripts/events")
@@ -39,7 +40,33 @@ app.listen(process.env.APP_PORT,()=>{
     app.use("/admin",AdminRoutes.router);
     app.use("/favoriler",FavorilerRoutes.router);
     app.use("/users/login",UserRoutes.router);
-    app.post("/upload", upload.array('photos', 12), create)
+    app.post("/upload", upload.array('photos', 12), create);
+
+    // app.get("/ilanlar", (req, res) => {
+    //   Project.find({isitma: "doğalgaz"})
+    //     .then((projects) => res.json(projects))
+    //     .catch((err) => res.status(400).json("Error: " + err));
+    // });
+
+    
+    // app.get('/ilanlar', (req, res) => {
+    //   const { isitma, odaSayisi, esyaDurumu, balkonDurumu } = req.query;
+    //   let filter = {};
+    //   if (isitma) filter.isitma = "klima";
+    //   if (odaSayisi) filter.odaSayisi = "2";
+    //   if (esyaDurumu) filter.esyaDurumu = "eşyalı";
+    //   if (balkonDurumu) filter.balkonDurumu = "var";
+    
+    //   project.find(filter)
+    //     .then(projects => res.json(projects))
+    //     .catch(err => res.status(400).json('Error: ' + err));
+    // });
+
+    // app.get("/ilanlar", (req, res) => {
+    //   Project.find({isitma: "doğalgaz"})
+    //     .then((projects) => res.json(projects))
+    //     .catch((err) => res.status(400).json("Error: " + err));
+    // });
 });
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

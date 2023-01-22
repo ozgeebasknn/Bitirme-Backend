@@ -2,7 +2,8 @@ const {
   insertAdmin,
   loginAdmin,
   listIlan,
-  ilanDuzenle
+  ilanDuzenle,
+  remove
   
 } = require("../api/Admin");
 
@@ -80,10 +81,36 @@ const updateIlan = (req, res) => {
     );
 };
 
+const deleteProject = (req, res) => {
+  if (!req.params?.id) {
+    return res.status(httpStatus.BAD_REQUEST).send({
+      message: "ID bilgisi eksik",
+    });
+  }
+  remove(req.params?.id)
+    .then((deletedProject) => {
+      console.log("deletedProject:>>", deletedProject);
+      if (!deleteProject) {
+        return res.status(httpStatus.NOT_FOUND).send({
+          message: "böyle bir kayıt bulunmamaktadır.",
+        });
+      }
+      res.status(httpStatus.OK).send({
+        message: "proje silinmiştir",
+      });
+    })
+    .catch((e) =>
+      res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .send({ error: "silme işlemi sırasında bir sorun oluşmuştur" })
+    );
+};
+
 module.exports = {
   createAdmin,
   listele,
   login,
-  updateIlan
+  updateIlan,
+  deleteProject
 
 };

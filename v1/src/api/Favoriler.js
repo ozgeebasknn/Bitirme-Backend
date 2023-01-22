@@ -6,7 +6,7 @@ const favorilereEkle = (data) => {
   return favori.save();
 };
 
-
-module.exports={
-    favorilereEkle
-}
+module.exports = {
+  favorilereEkle,
+ 
+};

@@ -10,18 +10,7 @@ const createValidation=Joi.object({
     aciklama:Joi.string().required().min(5),
 });
 
-const updateValidation=Joi.object({
-    name: Joi.string(),
-    kira:Joi.string(),
-    isitma:Joi.string(),
-    odaSayisi:Joi.string(),
-    esyaDurumu:Joi.string(),
-    balkonDurumu:Joi.string(),
-    aciklama:Joi.string(),
-    // name: Joi.string().required().min(5),
-});
-
 module.exports={
     createValidation,
-    updateValidation
+
 }

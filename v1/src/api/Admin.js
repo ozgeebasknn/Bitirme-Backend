@@ -1,6 +1,7 @@
 const { findOne } = require("../models/Admin");
 const Admin = require("../models/Admin");
 const Projects = require("../models/Projects");
+const Project = require("../models/Projects");
 
 const insertAdmin = (data) => {
     const admin = new Admin(data);
@@ -18,11 +19,15 @@ const insertAdmin = (data) => {
     return Projects.findByIdAndUpdate(id, {onayDurum:1}, { new: true });
   };
 
+  const remove = (id) => {
+    return Project.findByIdAndDelete(id);
+  };
   module.exports = {
     insertAdmin,
     loginAdmin,
     listIlan,
-    ilanDuzenle
+    ilanDuzenle,
+    remove
   
   };
   

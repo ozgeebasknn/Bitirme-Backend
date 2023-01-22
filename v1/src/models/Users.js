@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Mongoose = require("mongoose");
 
 const UserSchema = new Mongoose.Schema(
@@ -10,9 +11,8 @@ const UserSchema = new Mongoose.Schema(
       type: String,
       unique: true,
     },
-    favorites:[],
-    // email:String,
-    // profile_image:{ String,}
+     favorites:[],
+  
   },
   { timestamps: true, versionKey: false }
 );
